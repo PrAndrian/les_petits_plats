@@ -48,7 +48,45 @@ function getOptionFilter(recipes){
 
 // Section - Filter --------------------------------------------------------
 
+//deleta all dom card
+function deleteAllCardDOM(){
+    const list_card = document.querySelector('.container-cards');
+    list_card.innerHTML = "";
+}
+
 // A function which generates cards results based on the main seachbar
+async function filterBySearchbar(recipes){
+    const searbar = document.querySelector('.searchbar-input');
+    let recipes_tmp = [];
+
+    searbar.addEventListener('input',(e)=>{
+        let word = e.target.value.toLowerCase();
+        if(e.target.value.length > 3){
+            console.log(word);
+            
+            //filter cards
+            recipes_tmp = recipes.filter((r)=>(r.name.toLowerCase().includes(word)))
+            
+            console.log(recipes)
+            
+            //Remove previous list of cards
+            deleteAllCardDOM();
+            //display cards
+            displayData(recipes_tmp);
+            
+        }
+
+        if(e.target.value.length <= 3){
+            //Remove previous list of cards
+            deleteAllCardDOM();
+            //display cards
+            displayData(recipes);
+        }
+    })
+}
 
 // A function which generates cards results based on the tags seachbars 
+async function filterBytag(){
+
+}
 

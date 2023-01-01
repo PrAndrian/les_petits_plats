@@ -17,12 +17,13 @@ async function displayData(recipes) {
 };
 
 async function init() {
-    // Récupère les datas
+    // Récupère les datas initial
     const {recipes} = await getRecipes();
     // Afficher les recettes
     displayData(recipes);
     // filtre
     getOptionFilter(recipes);
+    filterBySearchbar(recipes);
 };
 
 init();
