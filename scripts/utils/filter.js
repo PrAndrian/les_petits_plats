@@ -48,35 +48,35 @@ function getOptionFilter(recipes){
 
 // Section - Filter --------------------------------------------------------
 
-//deleta all dom card
-function deleteAllCardDOM(){
-    const list_card = document.querySelector('.container-cards');
-    list_card.innerHTML = "";
-}
-
+let recipes_tmp = [];
 // A function which generates cards results based on the main seachbar
 async function filterBySearchbar(recipes){
     const searbar = document.querySelector('.searchbar-input');
-    let recipes_tmp = [];
+    
+    //A function that check ingredients of a recipe
+    function checkIngredient(r_tmp){
+        r_tmp.ingredients.forEach(element => {
+            if(element.ingredient.toLowerCase() === word.toLowerCase()){
+                return true;
+            }
+        })
+    }
 
     searbar.addEventListener('input',(e)=>{
         let word = e.target.value.toLowerCase();
+        
         if(e.target.value.length > 3){
-            console.log(word);
+            //filter cards by searchbar
+            recipes_tmp = recipes.filter((r)=>(r.name.toLowerCase().includes(word) || r.description.toLowerCase().includes(word) ||  checkIngredient(r)))
             
-            //filter cards
-            recipes_tmp = recipes.filter((r)=>(r.name.toLowerCase().includes(word)))
-            
-            console.log(recipes)
+            //filter cards by tag
+            // filterBytag(recipes_tmp);
             
             //Remove previous list of cards
             deleteAllCardDOM();
             //display cards
             displayData(recipes_tmp);
-            
-        }
-
-        if(e.target.value.length <= 3){
+        }else{
             //Remove previous list of cards
             deleteAllCardDOM();
             //display cards
@@ -86,7 +86,12 @@ async function filterBySearchbar(recipes){
 }
 
 // A function which generates cards results based on the tags seachbars 
-async function filterBytag(){
+async function filterBytag(recipes){
 
 }
 
+//deleta all dom card
+function deleteAllCardDOM(){
+    const list_card = document.querySelector('.container-cards');
+    list_card.innerHTML = "";
+}
