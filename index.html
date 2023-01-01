@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les petits plats</title>
+    <!-- Fontawesome Icon  -->
+    <script src="https://kit.fontawesome.com/2ace4a1d36.js" crossorigin="anonymous"></script>
+    <!-- Bootstrap CSS  -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <!-- Personnal CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <!-- header  -->
+    <header class="logo pt-5 pb-3">
+        <img src="images/logo.svg" class="logo-image" alt="logo">
+        <h1 class="logo-title">Les petits plats</h1>  
+    </header>
+
+    <!-- main  -->
+    <main class="main-container">
+        <!-- searchbar  -->
+        <div class="searchbar input-group mb-3">
+            <input type="text" class="form-control searchbar-input" placeholder="Rechercher une recette" aria-label="Recipient's username" aria-describedby="button-addon1">
+            <button class="btn btn-lg searchbar-button" type="button" id="button-addon2">
+                <i class="fa-solid fa-magnifying-glass searchbar-icon"></i>
+            </button>
+        </div>
+
+        <!-- filter-applied -->
+        <div class="filter-chosen d-flex flex-wrap mt-4 mb-3 gap-2">
+            <button class="btn btn-primary d-flex align-items-center">Coco <i class="fa-regular fa-circle-xmark badge-icon"></i></button>
+            <button class="btn btn-device d-flex align-items-center">Coco <i class="fa-regular fa-circle-xmark badge-icon"></i></button>
+            <button class="btn btn-tool d-flex align-items-center">Coco <i class="fa-regular fa-circle-xmark badge-icon"></i></button>
+        </div>
+
+        <!-- filter-options -->
+        <div class="filter-option d-flex flex-wrap gap-4">          
+            <div class="dropdown dropdown-ingredient"> <!-- mettre flex-grow-1 lors du focus -->
+                <div class="d-flex input-group me-4">
+                    <input type="text" class="form-control dropdown-input dropdown-input-ingredient" placeholder="Ingredients" aria-label="Ingredients" aria-describedby="button-addon2">
+                    <div class="dropdown-container dropdown-container-ingrediant rounded-end d-flex align-items-center"><!-- elever rounded-end lors du focus -->
+                        <i class="fa-solid fa-angle-down dropdown-container-icon"></i>
+                    </div>
+                </div>
+
+                <div class="dropdown-menu dropdown-menu-ingredient"> <!-- mettre show lors du focus -->
+                  <div class="d-flex flex-wrap warpper-items-ingredient">
+                    
+                  </div>
+                </div> 
+            </div>
+            
+          <div class="dropdown dropdown-device"> <!-- mettre flex-grow-1 lors du focus -->
+              <div class="d-flex input-group me-4">
+                  <input type="text" class="form-control dropdown-input dropdown-input-device" placeholder="Appareils" aria-label="Ingredients" aria-describedby="button-addon2">
+                  <div class="dropdown-container dropdown-container-device rounded-end d-flex align-items-center"><!-- elever rounded-end lors du focus -->
+                      <i class="fa-solid fa-angle-down dropdown-container-icon"></i>
+                  </div>
+              </div>
+
+              <ul class="dropdown-menu dropdown-menu-device"> <!-- mettre show lors du focus -->
+                <div class="d-flex flex-wrap warpper-items-device">
+                    
+                </div>
+              </ul> 
+          </div>
+
+          <div class="dropdown dropdown-tool"> <!-- mettre flex-grow-1 lors du focus -->
+              <div class="d-flex input-group me-4">
+                  <input type="text" class="form-control dropdown-input dropdown-input-tool" placeholder="Ustensiles" aria-label="Ingredients" aria-describedby="button-addon2">
+                  <div class="dropdown-container dropdown-container-tool rounded-end d-flex align-items-center"><!-- elever rounded-end lors du focus -->
+                      <i class="fa-solid fa-angle-down dropdown-container-icon"></i>
+                  </div>
+              </div>
+
+              <ul class="dropdown-menu dropdown-menu-tool"> <!-- mettre show lors du focus -->
+                <div class="d-flex flex-wrap warpper-items-tool">
+                    
+                </div>
+              </ul> 
+          </div>
+
+
+        </div>
+
+        <!-- container-cards -->
+        <div class="container-cards pt-4 row row-cols-1 row-cols-md-3 g-5">
+          <!--cards -->  
+        </div>
+    </main>
+    
+
+    <!--Bootstrap JS  -->  
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <!-- JS for index  -->  
+    <script src="/scripts/factories/recipes.js"></script>
+    <script src="/scripts/pages/index.js"></script>
+    <script src="/scripts/utils/filter.js"></script>
+    <script src="/scripts/utils/event_manager-filter.js"></script>
+</body>
+</html>
