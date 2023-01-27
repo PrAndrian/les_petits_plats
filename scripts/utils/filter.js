@@ -19,7 +19,7 @@ async function filterBySearchbar(recipes){
 function checkIngredient(r,word){
     let check = false;
     r.ingredients.forEach(({ingredient}) => {
-         if(ingredient.includes(word)){
+         if(ingredient.toLowerCase().includes(word.toLowerCase())){
             check = true;
          }
     })
@@ -40,7 +40,7 @@ function filterByTag(recipes){
     const tag_selected = document.querySelectorAll('.tag-selected');
     let filtered_recipes=[];
     tag_selected.forEach(tag=>{
-        filtered_recipes = recipes.filter((r)=>(checkUstensil(r,tag.innerText)) || checkIngredient(r,tag.innerText) || r.appliance == tag.innerText)
+        filtered_recipes = recipes.filter((r)=>(checkIngredient(r,tag.innerText) || checkUstensil(r,tag.innerText)) || r.appliance.includes(tag.innerText))
     })
     return filtered_recipes
 }
