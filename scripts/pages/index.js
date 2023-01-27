@@ -8,7 +8,6 @@ async function getRecipes(){
 
 async function displayData(recipes) {
     const recipesSection = document.querySelector(".container-cards");
-    
     recipes.forEach((recipe) => {
         const recipeModel = recipeFactory(recipe);
         const recipeCardDOM = recipeModel.getRecipeCardDOM();
@@ -16,14 +15,21 @@ async function displayData(recipes) {
     });
 };
 
+function displayNothing() {
+    const recipesSection = document.querySelector(".container-cards");
+    recipesSection.innerHTML = `<span class="error">Aucune recette trouvée</span>`
+    console.log(recipesSection.innerHTML)
+};
+
 async function init() {
     // Récupère les datas initial
     const {recipes} = await getRecipes();
+    console.log(recipes);
     // Afficher les recettes
     displayData(recipes);
     // filtre
-    getOptionFilter(recipes);
     filterBySearchbar(recipes);
+    getAdvanceTags(recipes);
 };
 
 init();

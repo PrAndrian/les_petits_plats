@@ -1,5 +1,9 @@
 //Section - EVENT manager filters -----------------------------------------
 
+let menu_ingredient = document.querySelector('.dropdown-menu-ingredient > .warpper-items-ingredient');
+let menu_device = document.querySelector('.dropdown-menu-device > .warpper-items-device');
+let menu_tool = document.querySelector('.dropdown-menu-tool > .warpper-items-tool');
+
 //DOM Ingredients
 const dropdown_menu_ingredient = document.querySelector('.dropdown-menu-ingredient');
 const dropdown_input_ingredient = document.querySelector('.dropdown-input-ingredient');
@@ -46,7 +50,7 @@ const tools = {
 const tab_filter = new Array(ingredients,devices,tools);
 
 
-//A functnion who generate the behavior of dom dependent of the array tab_filter 
+//A function who generate the behavior of dom dependent of the array tab_filter 
 function dropdown_filter(tab_filter) {
     tab_filter.map((option)=>{
         option.input.addEventListener('focus', ()=>{
@@ -63,18 +67,7 @@ function dropdown_filter(tab_filter) {
             option.menu.classList.add('show');
             option.container.classList.remove('rounded-end');
         
-            option.input.addEventListener('input', ()=>{
-                console.log(option.input.value);
-                if(option.input.value.length > 0){
-                    option.dropdown.classList.remove('full-size');
-                    option.dropdown.classList.add('inputed-size');
-                }else if(!option.input.classList.contains('full-size') || option.input.classList.contains('inputed-size')){
-                    option.dropdown.classList.add('full-size');
-                    option.dropdown.classList.remove('inputed-size');
-                }
-            })
-        
-            option.input.addEventListener('blur', ()=>{
+            function blurOption(){
                 if(option === ingredients){
                     option.input.setAttribute('placeholder','Ingredients');
                 }
@@ -96,9 +89,97 @@ function dropdown_filter(tab_filter) {
                 if(!option.container.classList.contains('rounded-end')){
                     option.container.classList.add('rounded-end');
                 }
-            })
+            }
+            option.input.addEventListener('blur', (e)=> setTimeout(blurOption,200))
         })
     });
 }
 
+//display tags
+function getAdvanceTags(recipes){
+    menu_ingredient.innerHTML = "";
+    menu_device.innerHTML = "";
+    menu_tool.innerHTML = "";
+
+    let ingredient_tags = new Array();
+    let appliance_tags = new Array();
+    let ustensils_tags = new Array();
+    
+    recipes.map((recipe)=>{
+        recipe.ingredients.map(({ingredient})=>{
+            if(!ingredient_tags.includes(ingredient)){
+                ingredient_tags.push(ingredient);
+            }else{
+                const index = ingredient_tags.indexOf(ingredient);
+                ingredient_tags.splice(index, 1);
+            }
+        })
+
+        recipe.ustensils.map((ustensils)=>{
+            if(!ustensils_tags.includes(ustensils)){
+                ustensils_tags.push(ustensils);
+            }
+        })
+
+        if(!appliance_tags.includes(recipe.appliance)){
+            appliance_tags.push(recipe.appliance);
+        }
+    })
+
+    renderAdvanceTagsDOM(ingredient_tags,menu_ingredient);
+    renderAdvanceTagsDOM(appliance_tags,menu_device);
+    renderAdvanceTagsDOM(ustensils_tags,menu_tool);
+    
+    // a function generate dom for the array of options and the dom menu
+    function renderAdvanceTagsDOM(tags,dom){
+        tags.map((tag)=>{
+            let link = document.createElement('a');
+            link.classList.add('dropdown-item');
+            link.setAttribute('href',"#");
+            link.innerText = tag;
+            link.addEventListener('click',e=>{
+                if(dom === menu_ingredient){
+                    addTagDom(e.target.innerText, "ingredient");
+                }
+                if(dom === menu_device){
+                    addTagDom(e.target.innerText, "device");
+                }
+                if(dom === menu_tool){
+                    addTagDom(e.target.innerText, "tool");
+                }
+            })
+            dom.appendChild(link);
+        })
+    
+        function addTagDom(textTag, filter_type){
+            let filter_chosen = document.querySelector('.filter-chosen');
+        
+            let color;
+            if(filter_type === "ingredient"){
+                color = "btn-primary"
+            }
+            if(filter_type === "device"){
+                color = "btn-device"
+            }
+            if(filter_type === "tool"){
+                color = "btn-tool"
+            }
+        
+            let tag = document.createElement("button");
+            tag.classList.add("btn")
+            tag.classList.add("d-flex")
+            tag.classList.add("align-items-center")
+            tag.classList.add("tag-selected")
+            tag.classList.add(color)
+            tag.innerHTML = textTag + `<i class="fa-regular fa-circle-xmark badge-icon"></i>`
+            filter_chosen.appendChild(tag);
+    
+            updatedRecipes(filterByTag(recipes))
+        }
+        
+    }
+}
+
+
+//Execution ----------------------------------------------------------------
 dropdown_filter(tab_filter);
