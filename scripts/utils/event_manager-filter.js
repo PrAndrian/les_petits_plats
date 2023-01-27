@@ -174,9 +174,8 @@ function getAdvanceTags(recipes){
             tag.innerHTML = textTag + `<i class="fa-regular fa-circle-xmark badge-icon"></i>`
             filter_chosen.appendChild(tag);
     
-            updatedRecipes(filterByTag(recipes))
+            filterByTag(recipes)
         }
-        
     }
 }
 

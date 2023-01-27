@@ -41,8 +41,9 @@ function filterByTag(recipes){
     let filtered_recipes=[];
     tag_selected.forEach(tag=>{
         filtered_recipes = recipes.filter((r)=>(checkIngredient(r,tag.innerText) || checkUstensil(r,tag.innerText)) || r.appliance.includes(tag.innerText))
+        tag.addEventListener('click',e=>{console.log(e.target.innerText)})
     })
-    return filtered_recipes
+    updatedRecipes(filtered_recipes) 
 }
 
 //A function that updated recipes
