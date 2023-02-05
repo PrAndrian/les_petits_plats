@@ -17,7 +17,8 @@ async function displayData(recipes) {
 
 function displayNothing() {
     const recipesSection = document.querySelector(".container-cards");
-    recipesSection.innerHTML = `<span class="error">Aucune recette trouvée</span>`
+    recipesSection.innerHTML = `<span class="error">Aucune recette ne correspond à votre critère… vous pouvez
+    chercher « tarte aux pommes », « poisson », etc.</span>`
 };
 
 let initial_recipes;
@@ -31,7 +32,7 @@ async function init() {
     // Afficher les recettes
     displayData(recipes);
     // filtre
-    searchbarListener(recipes);
+    searchbarListener();
     getAdvanceTags(recipes);
     initial_recipes = getInitialrRecipes(recipes); 
 };    

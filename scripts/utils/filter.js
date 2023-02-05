@@ -1,25 +1,25 @@
 const searbar = document.querySelector('.searchbar-input');
 
 //function : when there is input in searbar and filter
-function searchbarListener(recipes){
+function searchbarListener(){
     searbar.addEventListener('input',(e)=>{
-        filter(recipes)
+        filter()
     })  
 }
 
 //A function that filter by word in searchbar and tag
-function filter(recipes){
+function filter(){
     const tag_selected = document.querySelectorAll('.tag-selected');
-    let word = searbar.value.toLowerCase();
-    let filtered_recipes = initial_recipes;
+    var word = searbar.value.toLowerCase();
+    var result = initial_recipes;
 
-    if(tag_selected.length != 0 || word.length > 2){
-        filtered_recipes = initial_recipes.filter((r)=>(checkIngredient(r,word)|| r.name.toLowerCase().includes(word)|| r.description.toLowerCase().includes(word)))
-        filtered_recipes = filterByTag(filtered_recipes)
-        console.log(filtered_recipes)
-    }
+    if(word.length > 2)
+        result = initial_recipes.filter((r)=>(checkIngredient(r,word)|| r.name.toLowerCase().includes(word)|| r.description.toLowerCase().includes(word)))
+    
+    if(tag_selected.length != 0)
+        result = filterByTag(result)
 
-    updatedRecipes(filtered_recipes);
+    updatedRecipes(result);
 }
 
 //A function tha filter by tags of a recipes 
@@ -30,7 +30,7 @@ function filterByTag(recipes){
     tag_selected.forEach(tag=>{
         let word = tag.innerText.toLowerCase();
         filtered_recipes = recipes.filter((r)=>(checkIngredient(r,word) || checkUstensil(r,word)) || r.appliance.toLowerCase().includes(word))
-    })
+    })    
     return filtered_recipes;
 }
 

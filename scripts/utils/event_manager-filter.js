@@ -128,13 +128,13 @@ function getAdvanceTags(recipes){
         }
     })
 
-    renderAdvanceTagsDOM(ingredient_tags,menu_ingredient,recipes);
-    renderAdvanceTagsDOM(appliance_tags,menu_device,recipes);
-    renderAdvanceTagsDOM(ustensils_tags,menu_tool,recipes);    
+    renderAdvanceTagsDOM(ingredient_tags,menu_ingredient);
+    renderAdvanceTagsDOM(appliance_tags,menu_device);
+    renderAdvanceTagsDOM(ustensils_tags,menu_tool);    
 }
 
 // a function generate dom for the array of options and the dom menu
-function renderAdvanceTagsDOM(tags,dom,recipes){
+function renderAdvanceTagsDOM(tags,dom){
     tags.map((tag)=>{
         let link = document.createElement('a');
         link.classList.add('dropdown-item');
@@ -142,20 +142,20 @@ function renderAdvanceTagsDOM(tags,dom,recipes){
         link.innerText = tag;
         link.addEventListener('click',e=>{
             if(dom === menu_ingredient){
-                addTagDom(e.target.innerText, "ingredient",recipes);
+                addTagDom(e.target.innerText, "ingredient");
             }
             if(dom === menu_device){
-                addTagDom(e.target.innerText, "device",recipes);
+                addTagDom(e.target.innerText, "device");
             }
             if(dom === menu_tool){
-                addTagDom(e.target.innerText, "tool",recipes);
+                addTagDom(e.target.innerText, "tool");
             }
         })
         dom.appendChild(link);
     })
 }
 
-function addTagDom(textTag, filter_type,recipes){
+function addTagDom(textTag, filter_type){
     let filter_chosen = document.querySelector('.filter-chosen');
 
     let color;
@@ -177,11 +177,11 @@ function addTagDom(textTag, filter_type,recipes){
     tag.classList.add(color)
     tag.addEventListener('click',e=>{
         e.target.parentNode.removeChild(e.target);
-        filter(recipes)
+        filter();
     })
     tag.innerHTML = textTag + `<i class="fa-regular fa-circle-xmark badge-icon"></i>`
     filter_chosen.appendChild(tag);
-    filter(recipes)
+    filter();
     ingredients.input.value = ""
     devices.input.value = ""
     tools.input.value = ""
