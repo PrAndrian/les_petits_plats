@@ -163,6 +163,11 @@ ul{
 }
 
 @media screen and (max-width: 426px) {
+    
+    .dropdown{
+        width: 100%;
+    }
+
     .dropdown-item{
         width: calc(100%/2);
     }

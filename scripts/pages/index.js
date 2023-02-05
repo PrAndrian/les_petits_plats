@@ -18,7 +18,6 @@ async function displayData(recipes) {
 function displayNothing() {
     const recipesSection = document.querySelector(".container-cards");
     recipesSection.innerHTML = `<span class="error">Aucune recette trouvée</span>`
-    console.log(recipesSection.innerHTML)
 };
 
 let initial_recipes;
@@ -29,7 +28,6 @@ function getInitialrRecipes(recipes) {
 async function init() {
     // Récupère les datas initial
     const {recipes} = await getRecipes();
-    console.log(recipes);
     // Afficher les recettes
     displayData(recipes);
     // filtre

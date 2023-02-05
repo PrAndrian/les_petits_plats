@@ -66,7 +66,7 @@ function dropdown_filter(tab_filter) {
             option.dropdown.classList.add('full-size');
             option.menu.classList.add('show');
             option.container.classList.remove('rounded-end');
-        
+            
             option.input.addEventListener('blur', (e)=> setTimeout(()=>{
                 if(option === ingredients){
                     option.input.setAttribute('placeholder','Ingredients');
@@ -128,94 +128,87 @@ function getAdvanceTags(recipes){
         }
     })
 
-    renderAdvanceTagsDOM(ingredient_tags,menu_ingredient);
-    renderAdvanceTagsDOM(appliance_tags,menu_device);
-    renderAdvanceTagsDOM(ustensils_tags,menu_tool);
-    
-    // a function generate dom for the array of options and the dom menu
-    function renderAdvanceTagsDOM(tags,dom){
-        tags.map((tag)=>{
-            let link = document.createElement('a');
-            link.classList.add('dropdown-item');
-            link.setAttribute('href',"#");
-            link.innerText = tag;
-            link.addEventListener('click',e=>{
-                if(dom === menu_ingredient){
-                    addTagDom(e.target.innerText, "ingredient");
-                }
-                if(dom === menu_device){
-                    addTagDom(e.target.innerText, "device");
-                }
-                if(dom === menu_tool){
-                    addTagDom(e.target.innerText, "tool");
-                }
-            })
-            dom.appendChild(link);
+    renderAdvanceTagsDOM(ingredient_tags,menu_ingredient,recipes);
+    renderAdvanceTagsDOM(appliance_tags,menu_device,recipes);
+    renderAdvanceTagsDOM(ustensils_tags,menu_tool,recipes);    
+}
+
+// a function generate dom for the array of options and the dom menu
+function renderAdvanceTagsDOM(tags,dom,recipes){
+    tags.map((tag)=>{
+        let link = document.createElement('a');
+        link.classList.add('dropdown-item');
+        link.setAttribute('href',"#");
+        link.innerText = tag;
+        link.addEventListener('click',e=>{
+            if(dom === menu_ingredient){
+                addTagDom(e.target.innerText, "ingredient",recipes);
+            }
+            if(dom === menu_device){
+                addTagDom(e.target.innerText, "device",recipes);
+            }
+            if(dom === menu_tool){
+                addTagDom(e.target.innerText, "tool",recipes);
+            }
         })
-    
-        function addTagDom(textTag, filter_type){
-            let filter_chosen = document.querySelector('.filter-chosen');
-        
-            let color;
-            if(filter_type === "ingredient"){
-                color = "btn-primary"
-            }
-            if(filter_type === "device"){
-                color = "btn-device"
-            }
-            if(filter_type === "tool"){
-                color = "btn-tool"
-            }
-        
-            let tag = document.createElement("button");
-            tag.classList.add("btn")
-            tag.classList.add("d-flex")
-            tag.classList.add("align-items-center")
-            tag.classList.add("tag-selected")
-            tag.classList.add(color)
-            tag.addEventListener('click',e=>{
-                e.target.parentNode.removeChild(e.target);
-                filter(recipes)
-            })
-            tag.innerHTML = textTag + `<i class="fa-regular fa-circle-xmark badge-icon"></i>`
-            filter_chosen.appendChild(tag);
-    
-            filter(recipes)
-        }
+        dom.appendChild(link);
+    })
+}
+function addTagDom(textTag, filter_type,recipes){
+    let filter_chosen = document.querySelector('.filter-chosen');
+
+    let color;
+    if(filter_type === "ingredient"){
+        color = "btn-primary"
     }
+    if(filter_type === "device"){
+        color = "btn-device"
+    }
+    if(filter_type === "tool"){
+        color = "btn-tool"
+    }
+
+    let tag = document.createElement("button");
+    tag.classList.add("btn")
+    tag.classList.add("d-flex")
+    tag.classList.add("align-items-center")
+    tag.classList.add("tag-selected")
+    tag.classList.add(color)
+    tag.addEventListener('click',e=>{
+        e.target.parentNode.removeChild(e.target);
+        filter(recipes)
+    })
+    tag.innerHTML = textTag + `<i class="fa-regular fa-circle-xmark badge-icon"></i>`
+    filter_chosen.appendChild(tag);
+    filter(recipes)
 }
 
  
 ingredients.input.addEventListener('input', (e)=>{
     menu_ingredient.childNodes.forEach(node=>{
-        if(!node.innerText.includes(e.target.value)){
-            node.classList.add("hide");
-        }else{
-            node.classList.remove("hide");
-        }
+        checkWord(node,e)
     })
 })
 
 devices.input.addEventListener('input', (e)=>{
     menu_device.childNodes.forEach(node=>{
-        if(!node.innerText.includes(e.target.value)){
-            node.classList.add("hide");
-        }else{
-            node.classList.remove("hide");
-        }
+        checkWord(node,e)
     })
 })
 
 tools.input.addEventListener('input', (e)=>{
     menu_tool.childNodes.forEach(node=>{
-        if(!node.innerText.includes(e.target.value)){
-            node.classList.add("hide");
-        }else{
-            node.classList.remove("hide");
-        }
+        checkWord(node,e)
     })
 })
 
+function checkWord(node,e){
+    if(!node.innerText.toLowerCase().includes(e.target.value.toLowerCase())){
+        node.classList.add("hide");
+    }else{
+        node.classList.remove("hide");
+    }
+}
 
 //Execution ----------------------------------------------------------------
 dropdown_filter(tab_filter);
