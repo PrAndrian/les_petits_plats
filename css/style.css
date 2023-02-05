@@ -184,6 +184,7 @@ ul{
 
 .card-img-top{
     height: 178px;
+    width: 100%;
     object-fit: cover;
 }
 
