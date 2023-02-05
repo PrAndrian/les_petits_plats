@@ -8,6 +8,10 @@ ul{
     padding: 0;
 }
 
+.hide{
+    display: none;
+}
+
 /* header */
 .logo{
     display: flex;

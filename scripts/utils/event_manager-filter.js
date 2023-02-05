@@ -95,12 +95,14 @@ function dropdown_filter(tab_filter) {
     });
 }
 
+
+
 //display tags
 function getAdvanceTags(recipes){
     menu_ingredient.innerHTML = "";
     menu_device.innerHTML = "";
     menu_tool.innerHTML = "";
-
+    
     let ingredient_tags = new Array();
     let appliance_tags = new Array();
     let ustensils_tags = new Array();
@@ -171,13 +173,26 @@ function getAdvanceTags(recipes){
             tag.classList.add("align-items-center")
             tag.classList.add("tag-selected")
             tag.classList.add(color)
+            tag.addEventListener('click',e=>{
+                e.target.parentNode.removeChild(e.target);
+                filter(recipes)
+            })
             tag.innerHTML = textTag + `<i class="fa-regular fa-circle-xmark badge-icon"></i>`
             filter_chosen.appendChild(tag);
     
-            filterByTag(recipes)
+            filter(recipes)
         }
     }
 }
+
+ 
+ingredients.input.addEventListener('input', (e)=>{
+    menu_ingredient.childNodes.forEach(node=>{
+        if(!node.innerText.includes(e.target.value)){
+            node.classList.add("hide");
+        }
+    })
+})
 
 
 //Execution ----------------------------------------------------------------

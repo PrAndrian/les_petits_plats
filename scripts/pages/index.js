@@ -21,6 +21,11 @@ function displayNothing() {
     console.log(recipesSection.innerHTML)
 };
 
+let initial_recipes;
+function getInitialrRecipes(recipes) {
+    return recipes;
+}
+
 async function init() {
     // Récupère les datas initial
     const {recipes} = await getRecipes();
@@ -28,8 +33,10 @@ async function init() {
     // Afficher les recettes
     displayData(recipes);
     // filtre
-    filterBySearchbar(recipes);
+    searchbarListener(recipes);
     getAdvanceTags(recipes);
-};
+    initial_recipes = getInitialrRecipes(recipes); 
+};    
+
 
 init();
