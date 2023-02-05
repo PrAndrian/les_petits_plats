@@ -190,6 +190,8 @@ ingredients.input.addEventListener('input', (e)=>{
     menu_ingredient.childNodes.forEach(node=>{
         if(!node.innerText.includes(e.target.value)){
             node.classList.add("hide");
+        }else{
+            node.classList.remove("hide");
         }
     })
 })
