@@ -11,14 +11,12 @@ function searchbarListener(recipes){
 function filter(recipes){
     const tag_selected = document.querySelectorAll('.tag-selected');
     let word = searbar.value.toLowerCase();
-    let filtered_recipes = recipes;
+    let filtered_recipes = initial_recipes;
 
     if(tag_selected.length > 0 || word.length > 0){
         filtered_recipes = recipes.filter((r)=>(checkIngredient(r,word)|| r.name.toLowerCase().includes(word.toLowerCase())|| r.description.toLowerCase().includes(word.toLowerCase())))
         filtered_recipes = filterByTag(filtered_recipes)
         updatedRecipes(filtered_recipes);
-    }else{
-        filtered_recipes = initial_recipes
     }
 
     updatedRecipes(filtered_recipes);
