@@ -162,10 +162,6 @@ ul{
     width: 700px;
 }
 
-.inputed-size{
-    width: fit-content;
-}
-
 @media screen and (max-width: 426px) {
     .dropdown-item{
         width: calc(100%/2);

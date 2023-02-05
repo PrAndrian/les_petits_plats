@@ -67,7 +67,7 @@ function dropdown_filter(tab_filter) {
             option.menu.classList.add('show');
             option.container.classList.remove('rounded-end');
         
-            function blurOption(){
+            option.input.addEventListener('blur', (e)=> setTimeout(()=>{
                 if(option === ingredients){
                     option.input.setAttribute('placeholder','Ingredients');
                 }
@@ -77,23 +77,23 @@ function dropdown_filter(tab_filter) {
                 if(option === tools){
                     option.input.setAttribute('placeholder','Ustensiles');
                 }
-        
+            
                 if(option.dropdown.classList.contains('full-size')){
                     option.dropdown.classList.remove('full-size');    
                 }
-        
+            
                 if(option.menu.classList.contains('show')){
                     option.menu.classList.remove('show');
                 }
-        
+            
                 if(!option.container.classList.contains('rounded-end')){
                     option.container.classList.add('rounded-end');
                 }
-            }
-            option.input.addEventListener('blur', (e)=> setTimeout(blurOption,200))
+            },500))
         })
-    });
+    })
 }
+
 
 
 
@@ -188,6 +188,26 @@ function getAdvanceTags(recipes){
  
 ingredients.input.addEventListener('input', (e)=>{
     menu_ingredient.childNodes.forEach(node=>{
+        if(!node.innerText.includes(e.target.value)){
+            node.classList.add("hide");
+        }else{
+            node.classList.remove("hide");
+        }
+    })
+})
+
+devices.input.addEventListener('input', (e)=>{
+    menu_device.childNodes.forEach(node=>{
+        if(!node.innerText.includes(e.target.value)){
+            node.classList.add("hide");
+        }else{
+            node.classList.remove("hide");
+        }
+    })
+})
+
+tools.input.addEventListener('input', (e)=>{
+    menu_tool.childNodes.forEach(node=>{
         if(!node.innerText.includes(e.target.value)){
             node.classList.add("hide");
         }else{
