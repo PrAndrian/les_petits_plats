@@ -154,6 +154,7 @@ function renderAdvanceTagsDOM(tags,dom,recipes){
         dom.appendChild(link);
     })
 }
+
 function addTagDom(textTag, filter_type,recipes){
     let filter_chosen = document.querySelector('.filter-chosen');
 
@@ -181,6 +182,9 @@ function addTagDom(textTag, filter_type,recipes){
     tag.innerHTML = textTag + `<i class="fa-regular fa-circle-xmark badge-icon"></i>`
     filter_chosen.appendChild(tag);
     filter(recipes)
+    ingredients.input.value = ""
+    devices.input.value = ""
+    tools.input.value = ""
 }
 
  
