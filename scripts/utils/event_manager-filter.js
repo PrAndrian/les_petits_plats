@@ -94,37 +94,31 @@ function dropdown_filter(tab_filter) {
     })
 }
 
-
-
-
 //display tags
 function getAdvanceTags(recipes){
     menu_ingredient.innerHTML = "";
     menu_device.innerHTML = "";
     menu_tool.innerHTML = "";
-    
+
     let ingredient_tags = new Array();
     let appliance_tags = new Array();
     let ustensils_tags = new Array();
     
     recipes.map((recipe)=>{
         recipe.ingredients.map(({ingredient})=>{
-            if(!ingredient_tags.includes(ingredient)){
-                ingredient_tags.push(ingredient);
-            }else{
-                const index = ingredient_tags.indexOf(ingredient);
-                ingredient_tags.splice(index, 1);
+            if(!ingredient_tags.includes(ingredient.toLowerCase())){
+                ingredient_tags.push(ingredient.toLowerCase());
             }
         })
 
         recipe.ustensils.map((ustensils)=>{
-            if(!ustensils_tags.includes(ustensils)){
-                ustensils_tags.push(ustensils);
+            if(!ustensils_tags.includes(ustensils.toLowerCase())){
+                ustensils_tags.push(ustensils.toLowerCase());
             }
         })
 
-        if(!appliance_tags.includes(recipe.appliance)){
-            appliance_tags.push(recipe.appliance);
+        if(!appliance_tags.includes(recipe.appliance.toLowerCase())){
+            appliance_tags.push(recipe.appliance.toLowerCase());
         }
     })
 

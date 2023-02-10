@@ -22,6 +22,7 @@ function displayNothing() {
 };
 
 let initial_recipes;
+
 function getInitialrRecipes(recipes) {
     return recipes;
 }

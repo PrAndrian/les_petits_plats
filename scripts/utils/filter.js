@@ -14,7 +14,7 @@ function filter(){
     var result = initial_recipes;
 
     if(word.length > 2)
-        result = initial_recipes.filter((r)=>(checkIngredient(r,word)|| r.name.toLowerCase().includes(word)|| r.description.toLowerCase().includes(word)))
+        result = result.filter((r)=>(checkIngredient(r,word)|| r.name.toLowerCase().includes(word)|| r.description.toLowerCase().includes(word)))
     
     if(tag_selected.length != 0)
         result = filterByTag(result)
@@ -28,8 +28,9 @@ function filterByTag(recipes){
     
     let filtered_recipes = recipes;
     tag_selected.forEach(tag=>{
+        console.log(tag)
         let word = tag.innerText.toLowerCase();
-        filtered_recipes = recipes.filter((r)=>(checkIngredient(r,word) || checkUstensil(r,word)) || r.appliance.toLowerCase().includes(word))
+        filtered_recipes = filtered_recipes.filter((r)=>(checkIngredient(r,word) || checkUstensil(r,word)) || r.appliance.toLowerCase().includes(word))
     })    
     return filtered_recipes;
 }
