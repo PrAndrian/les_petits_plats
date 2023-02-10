@@ -28,7 +28,6 @@ function filterByTag(recipes){
     let filtered_recipes = recipes;
     
     tag_selected.forEach(tag=>{
-        console.log(tag)
         let word = tag.innerText.toLowerCase();
         filtered_recipes = filtered_recipes.filter((r)=>(checkIngredient(r,word) || checkUstensil(r,word)) || r.appliance.toLowerCase().includes(word))
     })    
@@ -45,6 +44,7 @@ function checkIngredient(r,word){
     })
     return check;
 }
+
 //A function that check ingredients of a recipe
 function checkUstensil(r,word){
     let check = false;

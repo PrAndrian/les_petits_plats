@@ -1,5 +1,4 @@
 //Section - EVENT manager filters -----------------------------------------
-
 let menu_ingredient = document.querySelector('.dropdown-menu-ingredient > .warpper-items-ingredient');
 let menu_device = document.querySelector('.dropdown-menu-device > .warpper-items-device');
 let menu_tool = document.querySelector('.dropdown-menu-tool > .warpper-items-tool');
@@ -183,25 +182,28 @@ function addTagDom(textTag, filter_type){
 
  
 ingredients.input.addEventListener('input', (e)=>{
+    let value = e.target.value.toLowerCase();
     menu_ingredient.childNodes.forEach(node=>{
-        checkWord(node,e)
+        checkWord(node,value)
     })
 })
 
 devices.input.addEventListener('input', (e)=>{
+    let value = e.target.value.toLowerCase();
     menu_device.childNodes.forEach(node=>{
-        checkWord(node,e)
+        checkWord(node,value)
     })
 })
 
 tools.input.addEventListener('input', (e)=>{
+    let value = e.target.value.toLowerCase();
     menu_tool.childNodes.forEach(node=>{
-        checkWord(node,e)
+        checkWord(node,value)
     })
 })
 
-function checkWord(node,e){
-    if(!node.innerText.toLowerCase().includes(e.target.value.toLowerCase())){
+function checkWord(node,value){
+    if(!node.innerText.toLowerCase().includes(value)){
         node.classList.add("hide");
     }else{
         node.classList.remove("hide");
