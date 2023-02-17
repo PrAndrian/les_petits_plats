@@ -22,7 +22,7 @@ function filter(){
     updatedRecipes(result);
 }
 
-//V2)A function tha filter by tags of a recipes 
+//V1)A function tha filter by tags of a recipes 
 function filterByTag(recipes){
     const tag_selected = document.querySelectorAll('.tag-selected');
     let filtered_recipes = recipes;
