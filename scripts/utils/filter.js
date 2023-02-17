@@ -7,7 +7,7 @@ function searchbarListener(){
     })  
 }
 
-//A function that filter by word in searchbar and tag
+//V1) A function that filter by word in searchbar and tag
 function filter(){
     const tag_selected = document.querySelectorAll('.tag-selected');
     var word = searbar.value.toLowerCase();
@@ -22,7 +22,7 @@ function filter(){
     updatedRecipes(result);
 }
 
-//A function tha filter by tags of a recipes 
+//V2)A function tha filter by tags of a recipes 
 function filterByTag(recipes){
     const tag_selected = document.querySelectorAll('.tag-selected');
     let filtered_recipes = recipes;
