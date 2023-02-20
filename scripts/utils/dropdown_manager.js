@@ -148,8 +148,7 @@ function getAdvanceTags(recipes){
         filter_chosen.childNodes.forEach((chosen_tag)=>{
             if(table.includes(chosen_tag.textContent)){
                 let index = table.indexOf(chosen_tag.textContent);
-
-                 table = table.splice(index, 1);
+                table = table.splice(index, 1);
             }
         })
     })
@@ -201,11 +200,27 @@ function addTagDom(textTag, filter_type){
     tag.classList.add("align-items-center")
     tag.classList.add("tag-selected")
     tag.classList.add(color)
-    tag.addEventListener('click',e=>{
-        e.target.parentNode.removeChild(e.target);
+    let text = document.createElement("span")
+    text.innerText = textTag
+    let icon = document.createElement("i");
+    icon.classList.add("fa-regular")
+    icon.classList.add("fa-circle-xmark")
+    icon.classList.add("badge-icon")
+    tag.appendChild(text)
+    tag.appendChild(icon)
+    tag.addEventListener('click',(e)=>{
+        e.target.remove();
         filter();
     })
-    tag.innerHTML = textTag + `<i class="fa-regular fa-circle-xmark badge-icon"></i>`
+    text.addEventListener('click',(e)=>{
+        e.target.parentNode.remove();
+        filter();
+    })
+    icon.addEventListener('click',(e)=>{
+        e.target.parentNode.remove();
+        filter();
+    })
+
     filter_chosen.appendChild(tag);
     filter();
     ingredients.input.value = ""
