@@ -7,23 +7,31 @@ function searchbarListener() {
   });
 }
 
-//V1) A function that filter by word in searchbar and tag
+// A function that filter by searching words and tags
 function filter() {
   const tag_selected = document.querySelectorAll(".tag-selected");
   var word = searbar.value.toLowerCase();
   var result = initial_recipes;
 
-  if (word.length > 2)
-    result = result.filter(
-      (r) =>
-        checkIngredient(r, word) ||
-        r.name.toLowerCase().includes(word) ||
-        r.description.toLowerCase().includes(word)
-    );
+  if (word.length > 2) result = filterBySearching(recipes);
 
   if (tag_selected.length != 0) result = filterByTag(result);
 
   updatedRecipes(result);
+}
+
+// V1) A function that filter by word in searchba
+function filterBySearching(recipes) {
+  let result = recipes;
+
+  result = result.filter(
+    (r) =>
+      checkIngredient(r, word) ||
+      r.name.toLowerCase().includes(word) ||
+      r.description.toLowerCase().includes(word)
+  );
+
+  return result;
 }
 
 //V1)A function tha filter by tags of a recipes
