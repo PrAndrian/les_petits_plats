@@ -40,7 +40,7 @@ function recipeFactory(data){
         warpper_text.classList.add("justify-content-between");
         warpper_text.classList.add("pt-2");
 
-        warpper_ingredient = document.createElement('ul')
+        let warpper_ingredient = document.createElement('ul')
         warpper_ingredient.classList.add('card-text')
         warpper_ingredient.classList.add('card-ingredients')
         

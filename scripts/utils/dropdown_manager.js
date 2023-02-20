@@ -8,18 +8,21 @@ const dropdown_menu_ingredient = document.querySelector('.dropdown-menu-ingredie
 const dropdown_input_ingredient = document.querySelector('.dropdown-input-ingredient');
 const dropdown_ingredient = document.querySelector('.dropdown-ingredient');
 const dropdown_container_ingredient = document.querySelector('.dropdown-container-ingrediant');
+const arrow_ingredient = document.querySelector('.arrow-ingredient');
 
 //DOM Device
 const dropdown_menu_device = document.querySelector('.dropdown-menu-device');
 const dropdown_input_device = document.querySelector('.dropdown-input-device');
 const dropdown_device = document.querySelector('.dropdown-device');
 const dropdown_container_device = document.querySelector('.dropdown-container-device');
+const arrow_device = document.querySelector('.arrow-device');
 
 //DOM Tool
 const dropdown_menu_tool = document.querySelector('.dropdown-menu-tool');
 const dropdown_input_tool = document.querySelector('.dropdown-input-tool');
 const dropdown_tool = document.querySelector('.dropdown-tool');
 const dropdown_container_tool = document.querySelector('.dropdown-container-tool');
+const arrow_tool = document.querySelector('.arrow-tool');
 
 // Object DOM ingredients
 const ingredients = {
@@ -27,6 +30,7 @@ const ingredients = {
     input : dropdown_input_ingredient,
     container : dropdown_container_ingredient,
     menu : dropdown_menu_ingredient,
+    arrow : arrow_ingredient,
 }
 
 // Object DOM device
@@ -35,6 +39,7 @@ const devices = {
     input : dropdown_input_device,
     container : dropdown_container_device,
     menu : dropdown_menu_device,
+    arrow : arrow_device,
 }
 
 // Object DOM tool
@@ -43,6 +48,7 @@ const tools = {
     input : dropdown_input_tool,
     container : dropdown_container_tool,
     menu : dropdown_menu_tool,
+    arrow : arrow_tool,
 }
 
 //array for objects dom
@@ -51,46 +57,58 @@ const tab_filter = new Array(ingredients,devices,tools);
 
 //A function who generate the behavior of dom dependent of the array tab_filter 
 function dropdown_filter(tab_filter) {
-    tab_filter.map((option)=>{
+    let bool = false; 
+
+    tab_filter.map((option)=>{        
+
         option.input.addEventListener('focus', ()=>{
-            if(option === ingredients){
-                option.input.setAttribute('placeholder','Rechercher un ingredient');
-            }
-            if(option === devices){
-                option.input.setAttribute('placeholder','Rechercher un appareils');
-            }
-            if(option === tools){
-                option.input.setAttribute('placeholder','Rechercher un ustensile');
-            }
-            option.dropdown.classList.add('full-size');
-            option.menu.classList.add('show');
-            option.container.classList.remove('rounded-end');
-            
-            option.input.addEventListener('blur', (e)=> setTimeout(()=>{
-                if(option === ingredients){
-                    option.input.setAttribute('placeholder','Ingredients');
-                }
-                if(option === devices){
-                    option.input.setAttribute('placeholder','Appareils');
-                }
-                if(option === tools){
-                    option.input.setAttribute('placeholder','Ustensiles');
-                }
-            
-                if(option.dropdown.classList.contains('full-size')){
-                    option.dropdown.classList.remove('full-size');    
-                }
-            
-                if(option.menu.classList.contains('show')){
-                    option.menu.classList.remove('show');
-                }
-            
-                if(!option.container.classList.contains('rounded-end')){
-                    option.container.classList.add('rounded-end');
-                }
-            },500))
+            bool = dropdown_behavior(option,bool)    
         })
+
+        option.arrow.addEventListener('click', ()=>{
+            option.input.focus();
+        })
+
+        option.input.addEventListener('blur', (e)=> setTimeout(()=>{
+            bool = dropdown_behavior(option,bool)
+        },0))
     })
+}
+
+function dropdown_behavior(option,bool){
+    if(!bool){
+        if(option === ingredients){
+            option.input.setAttribute('placeholder','Rechercher un ingredient');
+        }
+        if(option === devices){
+            option.input.setAttribute('placeholder','Rechercher un appareils');
+        }
+        if(option === tools){
+            option.input.setAttribute('placeholder','Rechercher un ustensile');
+        }
+
+        option.dropdown.classList.add('full-size');
+        option.menu.classList.add('show');
+        option.container.classList.remove('rounded-end');
+        bool = true;
+    }else{
+        if(option === ingredients){
+            option.input.setAttribute('placeholder','Ingredients');
+        }
+        if(option === devices){
+            option.input.setAttribute('placeholder','Appareils');
+        }
+        if(option === tools){
+            option.input.setAttribute('placeholder','Ustensiles');
+        }
+
+        option.dropdown.classList.remove('full-size');
+        option.menu.classList.remove('show');
+        option.container.classList.add('rounded-end');
+        bool = false;
+    }
+
+    return bool;
 }
 
 //display tags
@@ -121,6 +139,10 @@ function getAdvanceTags(recipes){
         }
     })
 
+    let tables = [ingredient_tags,appliance_tags,ustensils_tags]
+
+    tables.forEach((table)=>table.sort())
+    
     renderAdvanceTagsDOM(ingredient_tags,menu_ingredient);
     renderAdvanceTagsDOM(appliance_tags,menu_device);
     renderAdvanceTagsDOM(ustensils_tags,menu_tool);    
@@ -128,23 +150,27 @@ function getAdvanceTags(recipes){
 
 // a function generate dom for the array of options and the dom menu
 function renderAdvanceTagsDOM(tags,dom){
+    let filter_chosen = document.querySelector('.filter-chosen');
+
     tags.map((tag)=>{
-        let link = document.createElement('a');
-        link.classList.add('dropdown-item');
-        link.setAttribute('href',"#");
-        link.innerText = tag;
-        link.addEventListener('click',e=>{
-            if(dom === menu_ingredient){
-                addTagDom(e.target.innerText, "ingredient");
-            }
-            if(dom === menu_device){
-                addTagDom(e.target.innerText, "device");
-            }
-            if(dom === menu_tool){
-                addTagDom(e.target.innerText, "tool");
-            }
-        })
-        dom.appendChild(link);
+        if(filter_chosen.innerText != tag){
+            let link = document.createElement('a');
+            link.classList.add('dropdown-item');
+            link.setAttribute('href',"#");
+            link.innerText = tag;
+            link.addEventListener('click',e=>{
+                if(dom === menu_ingredient){
+                    addTagDom(e.target.innerText, "ingredient");
+                }
+                if(dom === menu_device){
+                    addTagDom(e.target.innerText, "device");
+                }
+                if(dom === menu_tool){
+                    addTagDom(e.target.innerText, "tool");
+                }
+            })
+            dom.appendChild(link);
+        }
     })
 }
 
