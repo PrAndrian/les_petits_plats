@@ -8,6 +8,11 @@ ul{
     padding: 0;
 }
 
+.arrow-shown{
+    translate: transform 1s ease-in-out;
+    transform: rotate(180deg);
+}
+
 .hide{
     display: none;
 }
@@ -141,9 +146,10 @@ ul{
     border-radius: 0px 5px 0px 0px ; /*elever rounded-end pour appliquer*/
 }
 
-.dropdown-container-icon{
+.dropdown-container-icon{    
     color: white;
     padding: 15px;
+    translate: transform 1s ease-in-out;
 }
 
 .dropdown-menu{

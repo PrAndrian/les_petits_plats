@@ -8,21 +8,26 @@ const dropdown_menu_ingredient = document.querySelector('.dropdown-menu-ingredie
 const dropdown_input_ingredient = document.querySelector('.dropdown-input-ingredient');
 const dropdown_ingredient = document.querySelector('.dropdown-ingredient');
 const dropdown_container_ingredient = document.querySelector('.dropdown-container-ingrediant');
-const arrow_ingredient = document.querySelector('.arrow-ingredient');
+const arrow_box_ingredient = document.querySelector('.arrow-ingredient');
+const arrow_ingredient = document.querySelector('.arrow-ingredient > *');
 
 //DOM Device
 const dropdown_menu_device = document.querySelector('.dropdown-menu-device');
 const dropdown_input_device = document.querySelector('.dropdown-input-device');
 const dropdown_device = document.querySelector('.dropdown-device');
 const dropdown_container_device = document.querySelector('.dropdown-container-device');
-const arrow_device = document.querySelector('.arrow-device');
+const arrow_box_device = document.querySelector('.arrow-device');
+const arrow_device = document.querySelector('.arrow-device > *');
+
 
 //DOM Tool
 const dropdown_menu_tool = document.querySelector('.dropdown-menu-tool');
 const dropdown_input_tool = document.querySelector('.dropdown-input-tool');
 const dropdown_tool = document.querySelector('.dropdown-tool');
 const dropdown_container_tool = document.querySelector('.dropdown-container-tool');
-const arrow_tool = document.querySelector('.arrow-tool');
+const arrow_box_tool = document.querySelector('.arrow-tool');
+const arrow_tool = document.querySelector('.arrow-tool > *');
+
 
 // Object DOM ingredients
 const ingredients = {
@@ -30,6 +35,7 @@ const ingredients = {
     input : dropdown_input_ingredient,
     container : dropdown_container_ingredient,
     menu : dropdown_menu_ingredient,
+    arrow_box : arrow_box_ingredient,
     arrow : arrow_ingredient,
 }
 
@@ -39,6 +45,7 @@ const devices = {
     input : dropdown_input_device,
     container : dropdown_container_device,
     menu : dropdown_menu_device,
+    arrow_box : arrow_box_device,
     arrow : arrow_device,
 }
 
@@ -48,6 +55,7 @@ const tools = {
     input : dropdown_input_tool,
     container : dropdown_container_tool,
     menu : dropdown_menu_tool,
+    arrow_box : arrow_box_tool,
     arrow : arrow_tool,
 }
 
@@ -60,15 +68,15 @@ function dropdown_filter(tab_filter) {
 
     tab_filter.map((option)=>{        
 
-        option.input.addEventListener('focus', ()=>{
-            open(option)
+        option.input.addEventListener('focus', (e)=>{
+            open(option);
         })
 
         option.input.addEventListener('blur', (e)=> setTimeout(()=>{
             close(option)    
         },250))
 
-        option.arrow.addEventListener('click', ()=>{
+        option.arrow_box.addEventListener('click', (e)=>{
             option.input.focus()
         })
     })
@@ -89,6 +97,7 @@ function open(option){
     option.dropdown.classList.add('full-size');
     option.menu.classList.add('show');
     option.container.classList.remove('rounded-end');
+    option.arrow.classList.add('arrow-shown');
 }
     
 function close(option){
@@ -105,6 +114,7 @@ function close(option){
     option.dropdown.classList.remove('full-size');
     option.menu.classList.remove('show');
     option.container.classList.add('rounded-end');
+    option.arrow.classList.remove('arrow-shown');
 }
 
 //display tags

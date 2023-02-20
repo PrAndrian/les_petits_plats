@@ -58,14 +58,10 @@ function checkUstensil(r,word){
     
 //A function that updated recipes
 function updatedRecipes(recipes){
-    if(recipes.length === 0){
-        displayNothing();
-        getAdvanceTags(recipes)
-    }else{
-        getAdvanceTags(recipes)
-        deleteAllCardDOM();
-        displayData(recipes);
-    }
+
+    getAdvanceTags(recipes)
+    deleteAllCardDOM();
+    displayData(recipes);
 
     //delete all dom card
     function deleteAllCardDOM(){
