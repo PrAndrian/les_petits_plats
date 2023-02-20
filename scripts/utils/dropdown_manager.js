@@ -57,58 +57,54 @@ const tab_filter = new Array(ingredients,devices,tools);
 
 //A function who generate the behavior of dom dependent of the array tab_filter 
 function dropdown_filter(tab_filter) {
-    let bool = false; 
 
     tab_filter.map((option)=>{        
 
         option.input.addEventListener('focus', ()=>{
-            bool = dropdown_behavior(option,bool)    
-        })
-
-        option.arrow.addEventListener('click', ()=>{
-            option.input.focus();
+            open(option)
         })
 
         option.input.addEventListener('blur', (e)=> setTimeout(()=>{
-            bool = dropdown_behavior(option,bool)
-        },0))
+            close(option)    
+        },250))
+
+        option.arrow.addEventListener('click', ()=>{
+            option.input.focus()
+        })
     })
 }
 
-function dropdown_behavior(option,bool){
-    if(!bool){
-        if(option === ingredients){
-            option.input.setAttribute('placeholder','Rechercher un ingredient');
-        }
-        if(option === devices){
-            option.input.setAttribute('placeholder','Rechercher un appareils');
-        }
-        if(option === tools){
-            option.input.setAttribute('placeholder','Rechercher un ustensile');
-        }
 
-        option.dropdown.classList.add('full-size');
-        option.menu.classList.add('show');
-        option.container.classList.remove('rounded-end');
-        bool = true;
-    }else{
-        if(option === ingredients){
-            option.input.setAttribute('placeholder','Ingredients');
-        }
-        if(option === devices){
-            option.input.setAttribute('placeholder','Appareils');
-        }
-        if(option === tools){
-            option.input.setAttribute('placeholder','Ustensiles');
-        }
-
-        option.dropdown.classList.remove('full-size');
-        option.menu.classList.remove('show');
-        option.container.classList.add('rounded-end');
-        bool = false;
+function open(option){
+    if(option === ingredients){
+        option.input.setAttribute('placeholder','Rechercher un ingredient');
+    }
+    if(option === devices){
+        option.input.setAttribute('placeholder','Rechercher un appareils');
+    }
+    if(option === tools){
+        option.input.setAttribute('placeholder','Rechercher un ustensile');
     }
 
-    return bool;
+    option.dropdown.classList.add('full-size');
+    option.menu.classList.add('show');
+    option.container.classList.remove('rounded-end');
+}
+    
+function close(option){
+    if(option === ingredients){
+        option.input.setAttribute('placeholder','Ingredients');
+    }
+    if(option === devices){
+        option.input.setAttribute('placeholder','Appareils');
+    }
+    if(option === tools){
+        option.input.setAttribute('placeholder','Ustensiles');
+    }
+
+    option.dropdown.classList.remove('full-size');
+    option.menu.classList.remove('show');
+    option.container.classList.add('rounded-end');
 }
 
 //display tags
@@ -123,25 +119,40 @@ function getAdvanceTags(recipes){
     
     recipes.map((recipe)=>{
         recipe.ingredients.map(({ingredient})=>{
-            if(!ingredient_tags.includes(ingredient.toLowerCase())){
-                ingredient_tags.push(ingredient.toLowerCase());
+            let word_ingredients = ingredient.charAt(0).toUpperCase() + ingredient.substring(1).toLowerCase()
+            if(!ingredient_tags.includes(word_ingredients)){
+                ingredient_tags.push(word_ingredients);
             }
         })
 
         recipe.ustensils.map((ustensils)=>{
-            if(!ustensils_tags.includes(ustensils.toLowerCase())){
-                ustensils_tags.push(ustensils.toLowerCase());
+            let word_ustensils = ustensils.charAt(0).toUpperCase() + ustensils.substring(1).toLowerCase()
+            if(!ustensils_tags.includes(word_ustensils)){
+                ustensils_tags.push(word_ustensils);
             }
         })
 
-        if(!appliance_tags.includes(recipe.appliance.toLowerCase())){
-            appliance_tags.push(recipe.appliance.toLowerCase());
+        let word_appliance = recipe.appliance.charAt(0).toUpperCase() + recipe.appliance.substring(1).toLowerCase()
+        if(!appliance_tags.includes(word_appliance)){
+            appliance_tags.push(word_appliance);
         }
     })
 
+    let filter_chosen = document.querySelector('.filter-chosen');
+    
     let tables = [ingredient_tags,appliance_tags,ustensils_tags]
 
-    tables.forEach((table)=>table.sort())
+    tables.forEach((table)=>{
+        table.sort()
+
+        filter_chosen.childNodes.forEach((chosen_tag)=>{
+            if(table.includes(chosen_tag.textContent)){
+                let index = table.indexOf(chosen_tag.textContent);
+
+                 table = table.splice(index, 1);
+            }
+        })
+    })
     
     renderAdvanceTagsDOM(ingredient_tags,menu_ingredient);
     renderAdvanceTagsDOM(appliance_tags,menu_device);
@@ -150,27 +161,23 @@ function getAdvanceTags(recipes){
 
 // a function generate dom for the array of options and the dom menu
 function renderAdvanceTagsDOM(tags,dom){
-    let filter_chosen = document.querySelector('.filter-chosen');
-
     tags.map((tag)=>{
-        if(filter_chosen.innerText != tag){
-            let link = document.createElement('a');
-            link.classList.add('dropdown-item');
-            link.setAttribute('href',"#");
-            link.innerText = tag;
-            link.addEventListener('click',e=>{
-                if(dom === menu_ingredient){
-                    addTagDom(e.target.innerText, "ingredient");
-                }
-                if(dom === menu_device){
-                    addTagDom(e.target.innerText, "device");
-                }
-                if(dom === menu_tool){
-                    addTagDom(e.target.innerText, "tool");
-                }
-            })
-            dom.appendChild(link);
-        }
+        let link = document.createElement('a');
+        link.classList.add('dropdown-item');
+        link.setAttribute('href',"#");
+        link.innerText = tag;
+        link.addEventListener('click',e=>{
+            if(dom === menu_ingredient){
+                addTagDom(e.target.innerText, "ingredient");
+            }
+            if(dom === menu_device){
+                addTagDom(e.target.innerText, "device");
+            }
+            if(dom === menu_tool){
+                addTagDom(e.target.innerText, "tool");
+            }
+        })
+        dom.appendChild(link);
     })
 }
 
