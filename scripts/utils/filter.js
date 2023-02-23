@@ -67,7 +67,7 @@ function checkUstensil(r, word) {
   return check;
 }
 
-//A function that updated recipes
+// A function that updated recipes
 function updatedRecipes(recipes) {
   getAdvanceTags(recipes);
   deleteAllCardDOM();
