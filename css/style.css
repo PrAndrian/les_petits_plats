@@ -197,6 +197,16 @@ ul {
 
 .card {
   height: fit-content;
+  animation: 1s ease-in-out appear-card;
+}
+
+@keyframes appear-card {
+  0% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .card-body {
