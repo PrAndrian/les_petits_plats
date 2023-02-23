@@ -13,7 +13,7 @@ function filter(word) {
   updatedRecipes(result);
 }
 
-// V1) A function that filter by word in searchba
+// V2) A function that filter by word in searchba
 function filterBySearching(recipes, word) {
   let result = recipes;
   let word_compared = word.replace(/\s+/g, "");
@@ -28,7 +28,7 @@ function filterBySearching(recipes, word) {
   return result;
 }
 
-//V1) A function tha filter by tags of a recipes
+//V1 A function tha filter by tags of a recipes
 function filterByTag(recipes) {
   const tag_selected = document.querySelectorAll(".tag-selected");
   let filtered_recipes = recipes;
