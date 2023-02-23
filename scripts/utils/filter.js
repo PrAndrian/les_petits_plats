@@ -16,12 +16,13 @@ function filter(word) {
 // V1) A function that filter by word in searchba
 function filterBySearching(recipes, word) {
   let result = recipes;
+  let word_compared = word.replace(/\s+/g, "");
 
   result = result.filter(
     (r) =>
-      checkIngredient(r, word) ||
-      r.name.toLowerCase().includes(word) ||
-      r.description.toLowerCase().includes(word)
+      checkIngredient(r, word_compared) ||
+      r.name.replace(/\s+/g, "").toLowerCase().includes(word_compared) ||
+      r.description.replace(/\s+/g, "").toLowerCase().includes(word_compared)
   );
 
   return result;
@@ -33,12 +34,12 @@ function filterByTag(recipes) {
   let filtered_recipes = recipes;
 
   tag_selected.forEach((tag) => {
-    let word = tag.innerText.toLowerCase();
+    let word = tag.innerText.replace(/\s+/g, "").toLowerCase();
     filtered_recipes = filtered_recipes.filter(
       (r) =>
         checkIngredient(r, word) ||
         checkUstensil(r, word) ||
-        r.appliance.toLowerCase().includes(word)
+        r.appliance.replace(/\s+/g, "").toLowerCase().includes(word)
     );
   });
   return filtered_recipes;
@@ -48,7 +49,7 @@ function filterByTag(recipes) {
 function checkIngredient(r, word) {
   let check = false;
   r.ingredients.forEach(({ ingredient }) => {
-    if (ingredient.toLowerCase().includes(word)) {
+    if (ingredient.replace(/\s+/g, "").toLowerCase().includes(word)) {
       check = true;
     }
   });
@@ -59,7 +60,7 @@ function checkIngredient(r, word) {
 function checkUstensil(r, word) {
   let check = false;
   r.ustensils.forEach((ustensil) => {
-    if (ustensil.toLowerCase().includes(word)) {
+    if (ustensil.replace(/\s+/g, "").toLowerCase().includes(word)) {
       check = true;
     }
   });
