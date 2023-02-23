@@ -1,3 +1,7 @@
+import { recipeFactory } from "../factories/recipes.js";
+import { getAdvanceTags } from "../utils/dropdown_manager.js";
+import { filter } from "../utils/filter.js";
+
 async function getRecipes() {
   // Penser à remplacer par les données récupérées dans le json
   const response = await fetch("./data/recipes.json");
@@ -22,17 +26,22 @@ async function displayData(recipes) {
   }
 }
 
+const searbar = document.querySelector(".searchbar-input");
+
+searbar.addEventListener("input", (e) => {
+  filter(searbar.value.toLowerCase());
+});
+
 let initial_recipes;
 
 async function init() {
   // Récupère les datas initial
   const { recipes } = await getRecipes();
-  // Afficher les recettes
   displayData(recipes);
-  // filtre
-  searchbarListener();
   getAdvanceTags(recipes);
   initial_recipes = recipes;
 }
 
 init();
+
+export { initial_recipes, searbar, displayData };

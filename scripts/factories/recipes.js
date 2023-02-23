@@ -1,4 +1,4 @@
-function recipeFactory(data) {
+export const recipeFactory = (data) => {
   const {
     id,
     name,
@@ -99,4 +99,4 @@ function recipeFactory(data) {
   }
 
   return { getRecipeCardDOM };
-}
+};

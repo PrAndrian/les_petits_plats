@@ -1,16 +1,9 @@
-const searbar = document.querySelector(".searchbar-input");
-
-//function apply filter when there is input in searbar and filter
-function searchbarListener() {
-  searbar.addEventListener("input", (e) => {
-    filter();
-  });
-}
+import { getAdvanceTags } from "../utils/dropdown_manager.js";
+import { initial_recipes, displayData } from "../pages/index.js";
 
 // A function that filter by searching words and tags
-function filter() {
+function filter(word) {
   const tag_selected = document.querySelectorAll(".tag-selected");
-  var word = searbar.value.toLowerCase();
   var result = initial_recipes;
 
   if (word.length > 2) result = filterBySearching(result, word);
@@ -34,7 +27,7 @@ function filterBySearching(recipes, word) {
   return result;
 }
 
-//V1)A function tha filter by tags of a recipes
+//V1) A function tha filter by tags of a recipes
 function filterByTag(recipes) {
   const tag_selected = document.querySelectorAll(".tag-selected");
   let filtered_recipes = recipes;
@@ -78,10 +71,12 @@ function updatedRecipes(recipes) {
   getAdvanceTags(recipes);
   deleteAllCardDOM();
   displayData(recipes);
-
-  //delete all dom card
-  function deleteAllCardDOM() {
-    const list_card = document.querySelector(".container-cards");
-    list_card.innerHTML = "";
-  }
 }
+
+//delete all dom card
+function deleteAllCardDOM() {
+  const list_card = document.querySelector(".container-cards");
+  list_card.innerHTML = "";
+}
+
+export { filter };

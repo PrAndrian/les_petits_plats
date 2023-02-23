@@ -1,3 +1,6 @@
+import { filter } from "../utils/filter.js";
+import { searbar } from "../pages/index.js";
+
 //Section - EVENT manager filters -----------------------------------------
 let menu_ingredient = document.querySelector(
   ".dropdown-menu-ingredient > .warpper-items-ingredient"
@@ -130,7 +133,7 @@ function close(option) {
 }
 
 //display tags
-function getAdvanceTags(recipes) {
+const getAdvanceTags = (recipes) => {
   menu_ingredient.innerHTML = "";
   menu_device.innerHTML = "";
   menu_tool.innerHTML = "";
@@ -184,7 +187,7 @@ function getAdvanceTags(recipes) {
   renderAdvanceTagsDOM(ingredient_tags, menu_ingredient);
   renderAdvanceTagsDOM(appliance_tags, menu_device);
   renderAdvanceTagsDOM(ustensils_tags, menu_tool);
-}
+};
 
 // a function generate dom for the array of options and the dom menu
 function renderAdvanceTagsDOM(tags, dom) {
@@ -238,19 +241,21 @@ function addTagDom(textTag, filter_type) {
   tag.appendChild(icon);
   tag.addEventListener("click", (e) => {
     e.target.remove();
-    filter();
+    filter(searbar.value.toLowerCase());
   });
+
   text.addEventListener("click", (e) => {
     e.target.parentNode.remove();
-    filter();
+    filter(searbar.value.toLowerCase());
   });
+
   icon.addEventListener("click", (e) => {
     e.target.parentNode.remove();
-    filter();
+    filter(searbar.value.toLowerCase());
   });
 
   filter_chosen.appendChild(tag);
-  filter();
+  filter(searbar.value.toLowerCase());
   ingredients.input.value = "";
   devices.input.value = "";
   tools.input.value = "";
@@ -287,3 +292,5 @@ function checkWord(node, value) {
 
 //Execution ----------------------------------------------------------------
 dropdown_filter(tab_filter);
+
+export { getAdvanceTags };
