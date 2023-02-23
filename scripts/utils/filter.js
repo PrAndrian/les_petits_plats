@@ -15,20 +15,29 @@ function filter(word) {
 
 // V2) A function that filter by word in searchba
 function filterBySearching(recipes, word) {
-  let result = recipes;
+  let result_tmp = recipes;
+  let result = [];
   let word_compared = word.replace(/\s+/g, "");
 
-  result = result.filter(
-    (r) =>
-      checkIngredient(r, word_compared) ||
-      r.name.replace(/\s+/g, "").toLowerCase().includes(word_compared) ||
-      r.description.replace(/\s+/g, "").toLowerCase().includes(word_compared)
-  );
+  for (let i = 0; i < result_tmp.length; i++) {
+    let element = result_tmp[i];
+    let name = element.name.replace(/\s+/g, "");
+    let description = element.description.replace(/\s+/g, "");
+    if (
+      checkIngredient(element, word_compared) ||
+      name.toLowerCase().includes(word_compared) ||
+      description.toLowerCase().includes(word_compared)
+    ) {
+      result.push(result_tmp[i]);
+    }
+  }
+
+  console.log(result);
 
   return result;
 }
 
-//V1 A function tha filter by tags of a recipes
+// A function tha filter by tags of a recipes
 function filterByTag(recipes) {
   const tag_selected = document.querySelectorAll(".tag-selected");
   let filtered_recipes = recipes;
