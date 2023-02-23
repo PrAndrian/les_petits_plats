@@ -172,10 +172,10 @@ function getAdvanceTags(recipes) {
 
   tables.forEach((table) => {
     table.sort();
-
+    //not yet resolved
     filter_chosen.childNodes.forEach((chosen_tag) => {
       if (table.includes(chosen_tag.textContent)) {
-        let index = table.indexOf(chosen_tag.textContent);
+        const index = table.indexOf(chosen_tag.textContent);
         table = table.splice(index, 1);
       }
     });

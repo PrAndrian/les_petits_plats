@@ -1,6 +1,6 @@
 const searbar = document.querySelector(".searchbar-input");
 
-//function : when there is input in searbar and filter
+//function apply filter when there is input in searbar and filter
 function searchbarListener() {
   searbar.addEventListener("input", (e) => {
     filter();
@@ -13,7 +13,7 @@ function filter() {
   var word = searbar.value.toLowerCase();
   var result = initial_recipes;
 
-  if (word.length > 2) result = filterBySearching(recipes);
+  if (word.length > 2) result = filterBySearching(result, word);
 
   if (tag_selected.length != 0) result = filterByTag(result);
 
@@ -21,7 +21,7 @@ function filter() {
 }
 
 // V1) A function that filter by word in searchba
-function filterBySearching(recipes) {
+function filterBySearching(recipes, word) {
   let result = recipes;
 
   result = result.filter(
