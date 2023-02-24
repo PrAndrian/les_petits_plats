@@ -174,7 +174,7 @@ const getAdvanceTags = (recipes) => {
   let tables = [ingredient_tags, appliance_tags, ustensils_tags];
 
   tables.forEach((table) => {
-    table.sort();
+    table.sort((a, b) => a.localeCompare(b));
     //not yet resolved
     filter_chosen.childNodes.forEach((chosen_tag) => {
       if (table.includes(chosen_tag.textContent)) {
