@@ -1,4 +1,4 @@
-import { filter } from "../utils/filter.js";
+import { filter } from "./filter.js";
 import { searbar } from "../pages/index.js";
 
 //Section - EVENT manager filters -----------------------------------------
