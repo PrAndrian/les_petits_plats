@@ -15,7 +15,7 @@ function filterBySearching (recipes, word) {
     ) {
       result.push(resulttmp[i])
     }
-  }
+  } 
 
   return result
 }
