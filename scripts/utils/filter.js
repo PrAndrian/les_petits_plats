@@ -1,23 +1,16 @@
 //  V2) A function that filter by word in searchba
 function filterBySearching (recipes, word) {
-  const resulttmp = recipes
-  const result = []
-  const wordcompared = word.replace(/\s+/g, '').toLowerCase()
+  let result = recipes;
+  const word_compared = word.replace(/\s+/g, "");
 
-  for (let i = 0; i < resulttmp.length; i++) {
-    const element = resulttmp[i]
-    const name = element.name.replace(/\s+/g, '')
-    const description = element.description.replace(/\s+/g, '')
-    if (
-      checkIngredient(element, wordcompared) ||
-      name.toLowerCase().includes(wordcompared) ||
-      description.toLowerCase().includes(wordcompared)
-    ) {
-      result.push(resulttmp[i])
-    }
-  } 
+  result = result.filter(
+    (r) =>
+      checkIngredient(r, word_compared) ||
+      r.name.replace(/\s+/g, "").toLowerCase().includes(word_compared) ||
+      r.description.replace(/\s+/g, "").toLowerCase().includes(word_compared)
+  );
 
-  return result
+  return result;
 }
 
 //  A function tha filter by tags of a recipes
