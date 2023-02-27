@@ -1,7 +1,7 @@
 //  V1) A function that filter by word in searchba
 function filterBySearching (recipes, word) {
   let result = recipes
-  const word_compared = word.replace(/\s+/g, '')
+  const word_compared = word.replace(/\s+/g, '').toLowerCase()
 
   result = result.filter(
     (r) =>
