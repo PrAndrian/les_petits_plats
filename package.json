@@ -1,0 +1,22 @@
+{
+  "name": "build",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PrAndrian/les_petits_plats.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PrAndrian/les_petits_plats/issues"
+  },
+  "homepage": "https://github.com/PrAndrian/les_petits_plats#readme",
+  "devDependencies": {
+    "eslint": "^8.34.0"
+  }
+}

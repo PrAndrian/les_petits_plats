@@ -1,102 +1,112 @@
-export const recipeFactory = (data) => {
+const recipeFactory = (data) => {
   const {
-    id,
     name,
-    servings,
     ingredients,
     time,
-    description,
-    appliance,
-    ustensils,
-  } = data;
+    description
+  } = data
 
-  function getRecipeCardDOM() {
-    let warpper = document.createElement("div");
-    warpper.classList.add("col");
+  function getRecipeCardDOM () {
+    const warpper = document.createElement('div')
+    warpper.classList.add('col')
 
-    let card = document.createElement("div");
-    card.classList.add("card");
+    const card = document.createElement('div')
+    card.classList.add('card')
 
-    let image = document.createElement("img");
-    image.setAttribute("src", "images/plats/plat.jpg");
-    image.setAttribute("alt", "plat_test");
-    image.classList.add("card-img-top");
+    const image = document.createElement('img')
+    image.setAttribute('src', 'images/plats/plat.jpg')
+    image.setAttribute('alt', 'plattest')
+    image.classList.add('card-img-top')
 
-    let card_body = document.createElement("div");
-    card_body.classList.add("card-body");
+    const cardbody = document.createElement('div')
+    cardbody.classList.add('card-body')
 
-    let header = document.createElement("header");
-    header.classList.add("d-flex");
-    header.classList.add("justify-content-between");
+    const header = document.createElement('header')
+    header.classList.add('d-flex')
+    header.classList.add('justify-content-between')
 
-    let h5 = document.createElement("h2");
-    h5.classList.add("card-title");
-    h5.innerText = name;
+    const h5 = document.createElement('h2')
+    h5.classList.add('card-title')
+    h5.innerText = name
 
-    let timer = document.createElement("div");
-    timer.classList.add("timer");
+    const timer = document.createElement('div')
+    timer.classList.add('timer')
 
-    let icon_clock = document.createElement("i");
-    icon_clock.classList.add("fa-regular");
-    icon_clock.classList.add("fa-clock");
+    const iconclock = document.createElement('i')
+    iconclock.classList.add('fa-regular')
+    iconclock.classList.add('fa-clock')
 
-    let minute = document.createElement("span");
-    minute.classList.add("time");
-    minute.innerText = " " + time + " min";
+    const minute = document.createElement('span')
+    minute.classList.add('time')
+    minute.innerText = ' ' + time + ' min'
 
-    let warpper_text = document.createElement("div");
-    warpper_text.classList.add("d-flex");
-    warpper_text.classList.add("justify-content-between");
-    warpper_text.classList.add("pt-2");
+    const warppertext = document.createElement('div')
+    warppertext.classList.add('d-flex')
+    warppertext.classList.add('justify-content-between')
+    warppertext.classList.add('pt-2')
 
-    let warpper_ingredient = document.createElement("ul");
-    warpper_ingredient.classList.add("card-text");
-    warpper_ingredient.classList.add("card-ingredients");
+    const warpperingredient = document.createElement('ul')
+    warpperingredient.classList.add('card-text')
+    warpperingredient.classList.add('card-ingredients')
 
     for (let i = 0; i < ingredients.length; i++) {
-      let ingredient = document.createElement("li");
-      let ingredient_name = document.createElement("span");
-      let ingredient_quantity = document.createElement("span");
+      const ingredient = document.createElement('li')
+      const ingredientname = document.createElement('span')
+      const ingredientquantity = document.createElement('span')
 
-      ingredient_name.classList.add("ingredient-name");
-      ingredient_quantity.classList.add("ingredient-quantity");
+      ingredientname.classList.add('ingredient-name')
+      ingredientquantity.classList.add('ingredient-quantity')
 
-      ingredient_name.innerText = ingredients[i].ingredient;
+      ingredientname.innerText = ingredients[i].ingredient
 
-      if (ingredients[i].quantity != undefined)
-        ingredient_quantity.innerText = ": " + ingredients[i].quantity;
+      if (ingredients[i].quantity !== undefined) { ingredientquantity.innerText = ': ' + ingredients[i].quantity }
 
-      if (ingredients[i].unit != undefined)
-        ingredient_quantity.innerText += " " + ingredients[i].unit;
+      if (ingredients[i].unit !== undefined) { ingredientquantity.innerText += ' ' + ingredients[i].unit }
 
-      ingredient.appendChild(ingredient_name);
-      ingredient.appendChild(ingredient_quantity);
-      warpper_ingredient.appendChild(ingredient);
+      ingredient.appendChild(ingredientname)
+      ingredient.appendChild(ingredientquantity)
+      warpperingredient.appendChild(ingredient)
     }
 
-    let warpper_description = document.createElement("p");
-    warpper_description.classList.add("card-text");
-    warpper_description.classList.add("card-text");
-    warpper_description.classList.add("card-description");
-    warpper_description.innerText = description;
+    const warpperdescription = document.createElement('p')
+    warpperdescription.classList.add('card-text')
+    warpperdescription.classList.add('card-text')
+    warpperdescription.classList.add('card-description')
+    warpperdescription.innerText = description
 
-    warpper_text.appendChild(warpper_ingredient);
-    warpper_text.appendChild(warpper_description);
+    warppertext.appendChild(warpperingredient)
+    warppertext.appendChild(warpperdescription)
 
-    timer.appendChild(icon_clock);
-    timer.appendChild(minute);
+    timer.appendChild(iconclock)
+    timer.appendChild(minute)
 
-    header.appendChild(h5);
-    header.appendChild(timer);
+    header.appendChild(h5)
+    header.appendChild(timer)
 
-    card.append(image);
-    card.append(card_body);
-    card_body.append(header);
-    card_body.append(warpper_text);
+    card.append(image)
+    card.append(cardbody)
+    cardbody.append(header)
+    cardbody.append(warppertext)
 
-    warpper.appendChild(card);
-    return warpper;
+    warpper.appendChild(card)
+    return warpper
   }
 
-  return { getRecipeCardDOM };
-};
+  return { getRecipeCardDOM }
+}
+
+export async function displayData (recipes) {
+  const recipesSection = document.querySelector('.container-cards')
+
+  if (recipes.length <= 0) {
+    const recipesSection = document.querySelector('.container-cards')
+    recipesSection.innerHTML = `<span class="error">Aucune recette ne correspond à votre critère… vous pouvez
+        chercher « tarte aux pommes », « poisson », etc.</span>`
+  } else {
+    recipes.forEach((recipe) => {
+      const recipeModel = recipeFactory(recipe)
+      const recipeCardDOM = recipeModel.getRecipeCardDOM()
+      recipesSection.appendChild(recipeCardDOM)
+    })
+  }
+}

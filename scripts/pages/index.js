@@ -1,47 +1,83 @@
-import { recipeFactory } from "../factories/recipes.js";
-import { getAdvanceTags } from "../utils/dropdown_manager.js";
-import { filter } from "../utils/filter.js";
+import { displayData } from '../factories/recipes.js'
+import {
+  getAdvanceTags,
+  dropdownfilter,
+  tabfilter,
+  updatedRecipes
+} from '../utils/dom_manager.js'
+import {
+  filterBySearching,
+  filterByTag
+} from '../utils/filter.js'
 
-async function getRecipes() {
-  // Penser à remplacer par les données récupérées dans le json
-  const response = await fetch("./data/recipes.json");
-  const recipes = await response.json();
-  // et bien retourner le tableau photographers seulement une fois
-  return recipes;
+const getRecipes = async () => {
+  const response = await fetch('./data/recipes.json')
+  const recipes = await response.json()
+  return recipes
 }
 
-async function displayData(recipes) {
-  const recipesSection = document.querySelector(".container-cards");
+const init = async () => {
+  const { recipes } = await getRecipes()
+  dropdownfilter(tabfilter)
+  getAdvanceTags(recipes)
+  displayData(recipes)
 
-  if (recipes.length <= 0) {
-    const recipesSection = document.querySelector(".container-cards");
-    recipesSection.innerHTML = `<span class="error">Aucune recette ne correspond à votre critère… vous pouvez
-        chercher « tarte aux pommes », « poisson », etc.</span>`;
-  } else {
-    recipes.forEach((recipe) => {
-      const recipeModel = recipeFactory(recipe);
-      const recipeCardDOM = recipeModel.getRecipeCardDOM();
-      recipesSection.appendChild(recipeCardDOM);
-    });
+  const searchbar = document.querySelector('.searchbar > input')
+
+  searchbar.addEventListener('input', (event) => {
+    const word = event.target.value
+    let resultsearch = recipes
+    let resulttag = recipes
+    let result = recipes
+
+    if (word.length > 2) resultsearch = filterBySearching(result, word)
+
+    resulttag = filterByTag(result)
+
+    result = resultsearch.concat(resulttag)
+    result = result.filter(
+      (element, index) => result.indexOf(element) !== index
+    )
+
+    updatedRecipes(result)
+  })
+
+  const tagschosenobserver = new MutationObserver(function (e) {
+    if (e[0].removedNodes) {
+      const word = searchbar.value
+      let resultsearch = recipes
+      let resulttag = recipes
+      let result = recipes
+
+      if (word.length > 2) resultsearch = filterBySearching(result, word)
+
+      resulttag = filterByTag(result)
+
+      result = resultsearch.concat(resulttag)
+      result = result.filter(
+        (element, index) => result.indexOf(element) !== index
+      )
+
+      updatedRecipes(result)
+    }
+  })
+
+  tagschosenobserver.observe(document.querySelector('.filter-chosen'), {
+    childList: true
+  })
+
+  const pageAccessedByReload = (
+    (window.performance.navigation && window.performance.navigation.type === 1) ||
+      window.performance
+        .getEntriesByType('navigation')
+        .map((nav) => nav.type)
+        .includes('reload')
+  )
+
+  if (pageAccessedByReload) {
+    const inputEvent = new Event('input')
+    searchbar.dispatchEvent(inputEvent)
   }
 }
 
-const searbar = document.querySelector(".searchbar-input");
-
-searbar.addEventListener("input", (e) => {
-  filter(searbar.value.toLowerCase());
-});
-
-let initial_recipes;
-
-async function init() {
-  // Récupère les datas initial
-  const { recipes } = await getRecipes();
-  displayData(recipes);
-  getAdvanceTags(recipes);
-  initial_recipes = recipes;
-}
-
-init();
-
-export { initial_recipes, searbar, displayData };
+init()

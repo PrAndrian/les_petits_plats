@@ -1,92 +1,62 @@
-import { getAdvanceTags } from "../utils/dropdown_manager.js";
-import { initial_recipes, displayData } from "../pages/index.js";
+//  V2) A function that filter by word in searchba
+function filterBySearching (recipes, word) {
+  const resulttmp = recipes
+  const result = []
+  const wordcompared = word.replace(/\s+/g, '').toLowerCase()
 
-// A function that filter by searching words and tags
-function filter(word) {
-  const tag_selected = document.querySelectorAll(".tag-selected");
-  var result = initial_recipes;
-
-  if (word.length > 2) result = filterBySearching(result, word);
-
-  if (tag_selected.length != 0) result = filterByTag(result);
-
-  updatedRecipes(result);
-}
-
-// V2) A function that filter by word in searchba
-function filterBySearching(recipes, word) {
-  let result_tmp = recipes;
-  let result = [];
-  let word_compared = word.replace(/\s+/g, "");
-
-  for (let i = 0; i < result_tmp.length; i++) {
-    let element = result_tmp[i];
-    let name = element.name.replace(/\s+/g, "");
-    let description = element.description.replace(/\s+/g, "");
+  for (let i = 0; i < resulttmp.length; i++) {
+    const element = resulttmp[i]
+    const name = element.name.replace(/\s+/g, '')
+    const description = element.description.replace(/\s+/g, '')
     if (
-      checkIngredient(element, word_compared) ||
-      name.toLowerCase().includes(word_compared) ||
-      description.toLowerCase().includes(word_compared)
+      checkIngredient(element, wordcompared) ||
+      name.toLowerCase().includes(wordcompared) ||
+      description.toLowerCase().includes(wordcompared)
     ) {
-      result.push(result_tmp[i]);
+      result.push(resulttmp[i])
     }
   }
 
-  console.log(result);
-
-  return result;
+  return result
 }
 
-// A function tha filter by tags of a recipes
-function filterByTag(recipes) {
-  const tag_selected = document.querySelectorAll(".tag-selected");
-  let filtered_recipes = recipes;
+//  A function tha filter by tags of a recipes
+function filterByTag (recipes) {
+  const tagselected = document.querySelectorAll('.tag-selected')
+  let filteredrecipes = recipes
 
-  tag_selected.forEach((tag) => {
-    let word = tag.innerText.replace(/\s+/g, "").toLowerCase();
-    filtered_recipes = filtered_recipes.filter(
+  tagselected.forEach((tag) => {
+    const word = tag.innerText.replace(/\s+/g, '').toLowerCase()
+    filteredrecipes = filteredrecipes.filter(
       (r) =>
         checkIngredient(r, word) ||
         checkUstensil(r, word) ||
-        r.appliance.replace(/\s+/g, "").toLowerCase().includes(word)
-    );
-  });
-  return filtered_recipes;
+        r.appliance.replace(/\s+/g, '').toLowerCase().includes(word)
+    )
+  })
+  return filteredrecipes
 }
 
-//A function that check ingredients of a recipe
-function checkIngredient(r, word) {
-  let check = false;
+// A function that check ingredients of a recipe
+function checkIngredient (r, word) {
+  let check = false
   r.ingredients.forEach(({ ingredient }) => {
-    if (ingredient.replace(/\s+/g, "").toLowerCase().includes(word)) {
-      check = true;
+    if (ingredient.replace(/\s+/g, '').toLowerCase().includes(word)) {
+      check = true
     }
-  });
-  return check;
+  })
+  return check
 }
 
-//A function that check ingredients of a recipe
-function checkUstensil(r, word) {
-  let check = false;
+// A function that check ingredients of a recipe
+function checkUstensil (r, word) {
+  let check = false
   r.ustensils.forEach((ustensil) => {
-    if (ustensil.replace(/\s+/g, "").toLowerCase().includes(word)) {
-      check = true;
+    if (ustensil.replace(/\s+/g, '').toLowerCase().includes(word)) {
+      check = true
     }
-  });
-  return check;
+  })
+  return check
 }
 
-// A function that updated recipes
-function updatedRecipes(recipes) {
-  getAdvanceTags(recipes);
-  deleteAllCardDOM();
-  displayData(recipes);
-}
-
-//delete all dom card
-function deleteAllCardDOM() {
-  const list_card = document.querySelector(".container-cards");
-  list_card.innerHTML = "";
-}
-
-export { filter };
+export { filterBySearching, filterByTag }
