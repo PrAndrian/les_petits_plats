@@ -87,7 +87,7 @@ const dropdownfilter = (tabfilter) => {
     option.input.addEventListener('blur', () =>
       setTimeout(() => {
         close(option)
-      }, 250)
+      }, 220)
     )
 
     option.arrowbox.addEventListener('click', () => {

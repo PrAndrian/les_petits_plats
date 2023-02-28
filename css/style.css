@@ -106,6 +106,7 @@ ul {
 .dropdown {
   width: 170px;
   height: 69px;
+  transition: width 220ms ease-out;
 }
 
 .dropdown-input {
@@ -122,18 +123,21 @@ ul {
 .dropdown-menu-ingredient,
 .dropdown-input-ingredient:focus {
   background-color: #0d6efd;
+
 }
 .dropdown-input-device,
 .dropdown-container-device,
 .dropdown-menu-device,
 .dropdown-input-device:focus {
   background-color: #68d9a4;
+
 }
 .dropdown-input-tool,
 .dropdown-container-tool,
 .dropdown-menu-tool,
 .dropdown-input-tool:focus {
   background-color: #ed6454;
+
 }
 
 .dropdown-input-tool:focus {
@@ -165,7 +169,8 @@ ul {
 .dropdown-menu {
   width: 100%;
   border: none;
-  border-radius: 0px 0px 5px 5px;
+  border-radius: 0px 0px 5px 5px; 
+  transition: height 220ms ease-out;
 }
 
 .dropdown-item {
