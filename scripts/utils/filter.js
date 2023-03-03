@@ -1,11 +1,26 @@
-// A function that check ingredients of a recipe
+/* eslint-disable no-plusplus */
 function checkIngredient(r, word) {
   let check = false;
-  r.ingredients.forEach(({ ingredient }) => {
-    if (ingredient.replace(/\s+/g, '').toLowerCase().includes(word)) {
-      check = true;
+  for (let i = 0; i < r.ingredients.length; i++) {
+    const ingredient = r.ingredients[i].ingredient.replace(/\s+/g, '').toLowerCase();
+    const wordLength = word.length;
+    const ingredientLength = ingredient.length;
+    let matchCount = 0;
+    for (let j = 0; j < ingredientLength; j++) {
+      if (ingredient[j] === word[matchCount]) {
+        matchCount++;
+      } else {
+        matchCount = 0;
+      }
+      if (matchCount === wordLength) {
+        check = true;
+        break;
+      }
     }
-  });
+    if (check) {
+      break;
+    }
+  }
   return check;
 }
 
@@ -20,21 +35,58 @@ function checkUstensil(r, word) {
   return check;
 }
 
-//  V2) A function that filter by word in searchba
+//  V2) A function that filter by word in searchbar
+function replaceSpaces(str) {
+  let result = '';
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] !== ' ') {
+      result += str[i];
+    }
+  }
+  return result;
+}
+
+function replaceSpacesToLowercase(str) {
+  let result = '';
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] !== ' ') {
+      result += str[i].toLowerCase();
+    }
+  }
+  return result;
+}
+
+function lowercaseIncludes(str, word) {
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] === word[0]) {
+      let j = i + 1;
+      let k = 1;
+      while (k < word.length && j < str.length && str[j] === word[k]) {
+        j++;
+        k++;
+      }
+      if (k === word.length) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
 function filterBySearching(recipes, word) {
   const resulttmp = recipes;
   const result = [];
-  const wordcompared = word.replace(/\s+/g, '').toLowerCase();
+  const wordcompared = replaceSpacesToLowercase(word);
 
-  // eslint-disable-next-line no-plusplus
   for (let i = 0; i < resulttmp.length; i++) {
     const element = resulttmp[i];
-    const name = element.name.replace(/\s+/g, '');
-    const description = element.description.replace(/\s+/g, '');
+    const name = replaceSpaces(element.name);
+    const description = replaceSpaces(element.description);
+
     if (
       checkIngredient(element, wordcompared)
-      || name.toLowerCase().includes(wordcompared)
-      || description.toLowerCase().includes(wordcompared)
+      || lowercaseIncludes(name, wordcompared)
+      || lowercaseIncludes(description, wordcompared)
     ) {
       result.push(resulttmp[i]);
     }
