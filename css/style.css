@@ -9,7 +9,6 @@ ul {
 }
 
 .arrow-shown {
-  translate: transform 1s ease-in-out;
   transform: rotate(180deg);
 }
 
@@ -169,7 +168,6 @@ ul {
   width: 100%;
   border: none;
   border-radius: 0px 0px 5px 5px; 
-  transform: height 220ms ease-out;
 }
 
 .dropdown-item {
