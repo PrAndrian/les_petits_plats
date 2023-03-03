@@ -24,12 +24,7 @@ function checkUstensil(r, word) {
 function filterBySearching(recipes, word) {
   let result = recipes;
   const wordCompared = word.replace(/\s+/g, '').toLowerCase();
-
-  result = result.filter(
-    (r) => checkIngredient(r, wordCompared)
-      || r.name.replace(/\s+/g, '').toLowerCase().includes(wordCompared)
-      || r.description.replace(/\s+/g, '').toLowerCase().includes(wordCompared),
-  );
+  result = result.filter((r) => checkIngredient(r, wordCompared) || r.name.replace(/\s+/g, '').toLowerCase().includes(wordCompared) || r.description.replace(/\s+/g, '').toLowerCase().includes(wordCompared));
 
   return result;
 }
@@ -42,9 +37,7 @@ function filterByTag(recipes) {
   tagselected.forEach((tag) => {
     const word = tag.innerText.replace(/\s+/g, '').toLowerCase();
     filteredrecipes = filteredrecipes.filter(
-      (r) => checkIngredient(r, word)
-        || checkUstensil(r, word)
-        || r.appliance.replace(/\s+/g, '').toLowerCase().includes(word),
+      (r) => checkIngredient(r, word) || checkUstensil(r, word) || r.appliance.replace(/\s+/g, '').toLowerCase().includes(word),
     );
   });
   return filteredrecipes;
