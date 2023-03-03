@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 const recipeFactory = (data) => {
   const {
     name,

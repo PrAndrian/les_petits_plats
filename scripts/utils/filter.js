@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable no-plusplus */
 function isLowerCaseContains(text, word) {
   const lenText = text.length;
