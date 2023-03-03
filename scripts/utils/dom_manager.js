@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable import/extensions */
 import { displayData } from '../factories/recipes.js';
 
@@ -9,6 +10,7 @@ const menudevice = document.querySelector(
   '.dropdown-menu-device > .warpper-items-device',
 );
 const menutool = document.querySelector(
+  // eslint-disable-next-line linebreak-style
   '.dropdown-menu-tool > .warpper-items-tool',
 );
 // DOM Element Ingredients

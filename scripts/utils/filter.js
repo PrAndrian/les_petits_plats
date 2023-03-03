@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 // A function that check ingredients of a recipe
 function checkIngredient(r, word) {
   let check = false;
