@@ -79,11 +79,7 @@ function filterByTag(recipes, tagselected) {
 
   tags.forEach((tag) => {
     const word = tag.innerText.replace(/\s+/g, '').toLowerCase();
-    filteredrecipes = filteredrecipes.filter(
-      (r) => checkIngredient(r, word)
-        || checkUstensil(r, word)
-        || r.appliance.replace(/\s+/g, '').toLowerCase().includes(word),
-    );
+    filteredrecipes = filteredrecipes.filter( (r) => checkIngredient(r, word) || checkUstensil(r, word) || r.appliance.replace(/\s+/g, '').toLowerCase().includes(word));
   });
   return filteredrecipes;
 }
