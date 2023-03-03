@@ -33,7 +33,7 @@ const init = async () => {
 
     if (word.length > 2) resultsearch = filterBySearching(result, word);
 
-    resulttag = filterByTag(result);
+    resulttag = filterByTag(result, document.querySelectorAll('.tag-selected'));
 
     result = resultsearch.concat(resulttag);
     result = result.filter(
@@ -52,7 +52,7 @@ const init = async () => {
 
       if (word.length > 2) resultsearch = filterBySearching(result, word);
 
-      resulttag = filterByTag(result);
+      resulttag = filterByTag(result, document.querySelectorAll('.tag-selected'));
 
       result = resultsearch.concat(resulttag);
       result = result.filter(
