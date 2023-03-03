@@ -20,7 +20,7 @@ function checkUstensil(r, word) {
   return check;
 }
 
-//  V1) A function that filter by word in searchba
+// V1) A function that filter by word in searchba
 function filterBySearching(recipes, word) {
   let result = recipes;
   const wordCompared = word.replace(/\s+/g, '').toLowerCase();
@@ -29,7 +29,7 @@ function filterBySearching(recipes, word) {
   return result;
 }
 
-//  A function tha filter by tags of a recipes
+// A function tha filter by tags of a recipes
 function filterByTag(recipes) {
   const tagselected = document.querySelectorAll('.tag-selected');
   let filteredrecipes = recipes;
@@ -42,4 +42,5 @@ function filterByTag(recipes) {
   });
   return filteredrecipes;
 }
+
 export { filterBySearching, filterByTag };
