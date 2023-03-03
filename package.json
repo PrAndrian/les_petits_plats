@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/PrAndrian/les_petits_plats#readme",
   "devDependencies": {
-    "eslint": "^8.34.0"
+    "eslint": "^8.35.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5"
   }
 }
