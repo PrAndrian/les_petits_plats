@@ -163,14 +163,13 @@ ul {
 .dropdown-container-icon {
   color: white;
   padding: 15px;
-  translate: transform 1s ease-in-out;
 }
 
 .dropdown-menu {
   width: 100%;
   border: none;
   border-radius: 0px 0px 5px 5px; 
-  transition: height 220ms ease-out;
+  transform: height 220ms ease-out;
 }
 
 .dropdown-item {
